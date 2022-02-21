@@ -3,6 +3,7 @@ package com.tintinpharma;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        PharmacyDriver tintinPharma = new PharmacyDriver();
+        tintinPharma.run();
     }
 }

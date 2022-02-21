@@ -34,15 +34,35 @@ public class Vaccine {
      */
     public Vaccine(Brands brand, double dose, String expiry, long id, double priceTag) {
         this.brand = brand;
-        this.dose = dose;
-        this.expiry = expiry;
+        this.dose = (dose <= 0) ? 1.55 : dose;
+        this.expiry = (expiry.equals("")) ? "2023-01-01" : expiry;
         this.id = id;
-        this.priceTag = priceTag;
+        this.priceTag = (priceTag <= 0) ? 25.5 : priceTag;
         vaccineCount++;
     }
 
+    /**
+     * Copy constructor
+     *
+     * @param vaccine the vaccine object which is to be copied.
+     */
+    public Vaccine(Vaccine vaccine) {
+        this(vaccine.getBrand(), vaccine.getDose(), vaccine.getExpiry(), vaccine.getPriceTag());
+    }
+
+    /**
+     * Overload constructor. This allows the creation of vaccine objects with default value for id field.
+     */
     public Vaccine(Brands brand, double dose, String expiry, double priceTag) {
         this(brand, dose, expiry, (long) (Math.random() * Math.pow(10, 9)), priceTag);
+    }
+
+    /**
+     * Overload constructor.
+     * @param brand
+     */
+    public Vaccine(Brands brand) {
+        this(brand, 1.55, "2023-01-01", 25.5);
     }
 
     /**
@@ -50,11 +70,12 @@ public class Vaccine {
      * the fields.
      */
     public Vaccine() {
-        this(Brands.Pfizer, 1.55, "2023-01-01", 25.5);
+        this(Brands.Pfizer);
     }
 
     /**
      * Compare equality for two vaccines.
+     *
      * @param vaccine the vaccine object with which the current vaccine object is to be compared with.
      * @return returns true if both vaccines have the same brand and dose, otherwise returns false.
      */
@@ -64,6 +85,7 @@ public class Vaccine {
 
     /**
      * Information about how many vaccines have been created so far.
+     *
      * @return returns number of vaccine objects created. Returns 0 if no vaccines have been created.
      */
     public long findNumberOfCreatedVaccines() {
@@ -72,18 +94,19 @@ public class Vaccine {
 
     /**
      * Retrieve all information about a vaccine.
+     *
      * @return all the field values in the form of a single string.
      */
     public String toString() {
         return "ID: " +
                 this.id +
-                ", Brand: " +
+                ", \nBrand: " +
                 this.brand +
-                ", Dose: " +
+                ", \nDose: " +
                 this.dose +
-                ", Expiry: " +
+                ", \nExpiry: " +
                 this.expiry +
-                ", Price: " +
+                ", \nPrice: " +
                 this.priceTag;
     }
 
